@@ -1,0 +1,262 @@
+@* @model ProductListViewModel; *@
+@model User;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Dashboard";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/dashboard.css">
+  <link rel="stylesheet" href="~/css/table-styles.css"> 
+}
+
+<div class="main-bottom-content">
+  <!-- Cards de Estatísticas -->
+  <div class="dashboard-cards">
+      <div class="dashboard-card revenue">
+          <div class="card-header">
+              <i class="fas fa-dollar-sign card-icon revenue"></i>
+          </div>
+          <div class="card-value">00.00 MT</div>
+          <div class="card-label">Receita Total do Mês</div>
+          <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i> 0%
+          </div>
+      </div>
+
+      <div class="dashboard-card sales">
+          <div class="card-header">
+              <i class="fas fa-shopping-cart card-icon sales"></i>
+          </div>
+          <div class="card-value">0</div>
+          <div class="card-label">Vendas Realizadas</div>
+          <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i> +0% VS mês anterior
+          </div>
+      </div>
+
+      <div class="dashboard-card products">
+          <div class="card-header">
+              <i class="fas fa-box card-icon products"></i>
+          </div>
+          <div class="card-value">5</div>
+          <div class="card-label">Produtos Ativos</div>
+          <div class="card-change negative">
+              <i class="fas fa-arrow-down"></i> 2 produtos inativos
+          </div>
+      </div>
+
+      <div class="dashboard-card users">
+          <div class="card-header">
+              <i class="fas fa-users card-icon users"></i>
+          </div>
+          <div class="card-value">5</div>
+          <div class="card-label">Usuários Operadores</div>
+          <div class="card-change positive">
+              <i class="fas fa-arrow-up"></i> +2 novos usuários
+          </div>
+      </div>
+  </div>
+
+  <!-- Controles -->
+  <div class="controls">
+      <div class="filter-controls">
+          <select>
+              <option>Últimos 7 dias</option>
+              <option>Últimos 30 dias</option>
+              <option>Este mês</option>
+              <option>Último mês</option>
+          </select>
+          <select>
+              <option>Todos os produtos</option>
+              <option>Bebidas</option>
+              <option>Cerveja</option>
+              <option>Refrigerante</option>
+          </select>
+      </div>
+      <a class="btn green" asp-action="Sales" asp-controller="Home">
+          <i class="fas fa-plus"></i> Nova Venda
+      </a>
+  </div>
+
+  <!-- Tabelas -->
+  <div class="dashboard-tables">
+      <!-- Vendas Recentes -->
+      <div class="table-section">
+          <div class="table-title">
+              <i class="fas fa-clock"></i>
+              Vendas Recentes
+          </div>
+          <table class="user-table">
+              <thead>
+                  <tr>
+                      <th>Data</th>
+                      <th>Produto</th>
+                      <th>Operador</th>
+                      <th>Qtd</th>
+                      <th>Valor</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>02/07/2025</td>
+                      <td>Cerveja Corona 355ml</td>
+                      <td>João Silva</td>
+                      <td>2</td>
+                      <td class="currency">MT 24,00</td>
+                  </tr>
+                  <tr>
+                      <td>02/07/2025</td>
+                      <td>Refrigerante Coca-Cola 2L</td>
+                      <td>Maria Santos</td>
+                      <td>1</td>
+                      <td class="currency">MT 8,50</td>
+                  </tr>
+                  <tr>
+                      <td>01/07/2025</td>
+                      <td>Cerveja Heineken 600ml</td>
+                      <td>Carlos Lima</td>
+                      <td>3</td>
+                      <td class="currency">MT 45,00</td>
+                  </tr>
+                  <tr>
+                      <td>01/07/2025</td>
+                      <td>Água Mineral 500ml</td>
+                      <td>Ana Costa</td>
+                      <td>5</td>
+                      <td class="currency">MT 12,50</td>
+                  </tr>
+                  <tr>
+                      <td>30/06/2025</td>
+                      <td>Cerveja Skol 350ml</td>
+                      <td>Pedro Rocha</td>
+                      <td>6</td>
+                      <td class="currency">MT 18,00</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <!-- Top Produtos -->
+      <div class="table-section">
+          <div class="table-title">
+              <i class="fas fa-trophy"></i>
+              Produtos Mais Vendidos
+          </div>
+          <table class="user-table">
+              <thead>
+                  <tr>
+                      <th>Produto</th>
+                      <th>Vendas</th>
+                      <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Cerveja Corona 355ml</td>
+                      <td>23</td>
+                      <td><span class="status-badge status-active">Ativo</span></td>
+                  </tr>
+                  <tr>
+                      <td>Coca-Cola 2L</td>
+                      <td>18</td>
+                      <td><span class="status-badge status-active">Ativo</span></td>
+                  </tr>
+                  <tr>
+                      <td>Heineken 600ml</td>
+                      <td>15</td>
+                      <td><span class="status-badge status-active">Ativo</span></td>
+                  </tr>
+                  <tr>
+                      <td>Água Mineral 500ml</td>
+                      <td>12</td>
+                      <td><span class="status-badge status-active">Ativo</span></td>
+                  </tr>
+                  <tr>
+                      <td>Skol 350ml</td>
+                      <td>10</td>
+                      <td><span class="status-badge status-inactive">Inativo</span></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+@* @model User;
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Dashboard";
+}
+
+@section Styles {
+  <link rel="stylesheet" type="" href="~/css/dashboard.css">
+  <link rel="stylesheet" type="" href="~/css/table-styles.css">
+}
+
+<div class="main-content">
+  <div class="left-panel">
+    <h2 class="section-title">Ultimos Produtos Adicionados</h2>
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Tipo de bebida</th>
+          <th>Marca</th>
+          <th>Preço Unitário</th>
+          <th>Stock Disponível</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cerveja</td>
+          <td>2M</td>
+          <td>60MT</td>
+          <td>30 Caixas</td>
+        </tr>
+        <tr>
+          <td>Vinho</td>
+          <td>Gatão</td>
+          <td>250MT</td>
+          <td>20 Unidades</td>
+        </tr>
+        <tr>
+          <td>Aguardente</td>
+          <td>Top 21</td>
+          <td>120MT</td>
+          <td>20 Unidades</td>
+        </tr>
+        <tr>
+          <td>Cerveja</td>
+          <td>Castle Lite</td>
+          <td>80MT</td>
+          <td>8 Caixas</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="right-panel">
+    <h3 class="section-title">Estatísticas</h3>
+    <div class="stats-chart">
+      <div style="width:100%;height:150px;background:#eee;border-radius:5px;text-align:center;line-height:150px;">[Gráfico]</div>
+    </div>
+
+    <div class="calendar">
+      <p><strong>Hoje:</strong> 06/06/2025</p>
+      <p>📅 Junho 2025</p>
+    </div>
+
+    <div class="sales">
+      <h3 class="section-title">Vendas Recentes</h3>
+      <table class="user-table">
+        <thead>
+          <th>Bebida</th><th>Unidades</th><th>Pagamento</th><th>Hora</th>
+        </thead>
+        <tr><td>2M</td><td>2</td><td>120 MT</td><td>12:07</td></tr>
+        <tr><td>Brutal</td><td>1</td><td>65 MT</td><td>12:07</td></tr>
+        <tr><td>Castle Lite</td><td>2</td><td>140 MT</td><td>12:07</td></tr>
+      </table>
+    </div>
+  </div>
+</div> *@

@@ -1,0 +1,207 @@
+/* Modal de Confirmação de Bloqueio */
+.confirm-modal {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    animation: bounceIn 0.4s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(100px);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.confirm-header {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 25px;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    position: relative;
+}
+
+.confirm-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+    display: block;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.confirm-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.confirm-subtitle {
+    opacity: 0.9;
+    font-size: 14px;
+}
+
+.confirm-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.user-info-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid #dee2e6;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.user-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: white;
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.user-details h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.user-details p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 3px 0;
+}
+
+.warning-message {
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+    color: #c0392b;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.warning-message strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.confirm-actions {
+    padding: 0 30px 30px 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.6);
+}
+
+/* Styles for the modal overlay, which makes the background dark and blurs it */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex; /* Shown when 'active' class is added */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* General button styles used in modals */
+.btn {
+    flex: 1;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-secondary {
+    background: #ecf0f1;
+    color: #2c3e50;
+    border: 2px solid #bdc3c7;
+}
+
+.btn-secondary:hover {
+    background: #d5dbdb;
+    border-color: #95a5a6;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .modal {
+        width: 95%;
+        margin: 10px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+}

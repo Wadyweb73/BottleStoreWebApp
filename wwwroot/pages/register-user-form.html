@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" href="../css/register-user-form.css">
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="../js/list-users.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-logo-container sidebar-top-container">
+        <h2>Nkaia's Bar</h2>
+      </div>
+
+      <div class="sidebar-bottom-container">
+        <ul class="sidebar-links">
+          <a href="./dashbord.html">
+            <i class="fas fa-chart-line"></i>
+            <label>Dashboard</label>
+          </a>
+
+          <a href="./list-products.html">
+            <i class="fas fa-wine-bottle"></i>
+            <label>Produtos</label>
+          </a>
+          
+          <a href="#">
+            <i class="fas fa-receipt"></i>
+            <label>Pedidos</label>
+          </a>
+
+          <a href="./sales.html">
+            <i class="fas fa-cash-register"></i>
+            <label>Vendas</label>
+          </a>
+
+          <a href="./list-users.html">
+            <i class="fas fa-users"></i>
+            <label>Utilizadores</label>
+          </a>
+        </ul>
+        
+        <a class="logout" href="../login.html">
+          <ul>
+              <i class="fas fa-sign-out-alt"></i>
+              <label>Sair</label>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1 class="page-title">Registar Utilizador</h1>
+        <div class="user">
+          <i class="fas fa-user-circle"></i>
+          <span>Maria Mangue (Admin)</span>
+        </div>
+      </div>
+
+      <div class="main-content">
+      <form class="user-form" method="post" action="">
+        <div class="form-group">
+          <label for="name">Nome do Utilizador</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="mariajoao123@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="role">Tipo de Utilizador</label>
+          <select id="role" name="role" required>
+            <option class="first-option" value="">-- Seleccine o Tipo de Utilizador --</option>
+            <option value="admin">Administrador</option>
+            <option value="gerente">Gerente</option>
+            <option value="funcionario">Funcionário</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" required placeholder="minhapalavrapasse123">
+        </div>
+
+        <button type="submit">Confirmar</button>
+      </form>
+        
+      </div>
+    </div>
+</body>
+</html>
+
+

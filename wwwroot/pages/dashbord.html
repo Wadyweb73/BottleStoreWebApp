@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/table-styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-logo-container sidebar-top-container">
+        <h2>Nkaia's Bar</h2>
+      </div>
+
+      <div class="sidebar-bottom-container">
+        <ul class="sidebar-links">
+          <a href="./dashbord.html">
+            <i class="fas fa-chart-line"></i>
+            <label>Dashboard</label>
+          </a>
+
+          <a href="./list-products.html">
+            <i class="fas fa-wine-bottle"></i>
+            <label>Produtos</label>
+          </a>
+          
+          <a href="#">
+            <i class="fas fa-receipt"></i>
+            <label>Pedidos</label>
+          </a>
+
+          <a href="./sales.html">
+            <i class="fas fa-cash-register"></i>
+            <label>Vendas</label>
+          </a>
+
+          <a href="./list-users.html">
+            <i class="fas fa-users"></i>
+            <label>Utilizadores</label>
+          </a>
+        </ul>
+        
+        <a class="logout" href="../login.html">
+          <ul>
+              <i class="fas fa-sign-out-alt"></i>
+              <label>Sair</label>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1 class="page-title">Dashboard</h1>
+        <div class="user">
+          <i class="fas fa-user-circle"></i>
+          <span>Maria Mangue (Admin)</span>
+        </div>
+      </div>
+
+      <div class="main-content">
+        <div class="left-panel">
+          <h2 class="section-title">Ultimos Produtos Adicionados</h2>
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>Tipo de bebida</th>
+                <th>Marca</th>
+                <th>Preço Unitário</th>
+                <th>Stock Disponível</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cerveja</td>
+                <td>2M</td>
+                <td>60MT</td>
+                <td>30 Caixas</td>
+              </tr>
+              <tr>
+                <td>Vinho</td>
+                <td>Gatão</td>
+                <td>250MT</td>
+                <td>20 Unidades</td>
+              </tr>
+              <tr>
+                <td>Aguardente</td>
+                <td>Top 21</td>
+                <td>120MT</td>
+                <td>20 Unidades</td>
+              </tr>
+              <tr>
+                <td>Cerveja</td>
+                <td>Castle Lite</td>
+                <td>80MT</td>
+                <td>8 Caixas</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="right-panel">
+          <h3 class="section-title">Estatísticas</h3>
+          <div class="stats-chart">
+            <div style="width:100%;height:150px;background:#eee;border-radius:5px;text-align:center;line-height:150px;">[Gráfico]</div>
+          </div>
+
+          <div class="calendar">
+            <p><strong>Hoje:</strong> 06/06/2025</p>
+            <p>📅 Junho 2025</p>
+          </div>
+
+          <div class="sales">
+            <h3 class="section-title">Vendas Recentes</h3>
+            <table class="user-table">
+              <thead>
+                <th>Bebida</th><th>Unidades</th><th>Pagamento</th><th>Hora</th>
+              </thead>
+              <tr><td>2M</td><td>2</td><td>120 MT</td><td>12:07</td></tr>
+              <tr><td>Brutal</td><td>1</td><td>65 MT</td><td>12:07</td></tr>
+              <tr><td>Castle Lite</td><td>2</td><td>140 MT</td><td>12:07</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

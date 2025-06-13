@@ -1,0 +1,329 @@
+@model ProductListViewModel;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Painel de Vendas";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/sales.css" />
+}
+
+@section Scripts {
+  <script defer src="~/js/sales.js"></script>
+}
+
+<div class="main-bottom-content">
+    <section class="left-panel">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Pesquisar Produto...">
+        </div>
+
+        <div class="filter-container">
+            <select class="filter-select">
+                <option value="">🏷️ Filtrar por categoria</option>
+                <option value="bebidas">🍺 Bebidas</option>
+                <option value="cerveja">🍻 Cervejas</option>
+                <option value="premium">⭐ Premium</option>
+            </select>
+        </div>
+
+        <section class="products-section">
+            @if (Model.Products != null && Model.Products.Any())
+            {
+                foreach (var product in Model.Products)
+                {
+                  var productInformation = Model.ProductInformationList.FirstOrDefault(pi => pi.ProductId == product.Id);
+
+                  if (productInformation != null)
+                  {
+                      <div class="product-item">
+                          <div class="product-info">
+                              <h3 class="product-name">@product.ProductName</h3>
+                              <p class="product-details">🍺 Categoria: @product.ProductCategory</p>
+                              <p class="product-price">@productInformation.UnitPrice MT</p>
+                          </div>
+                          <div class="product-actions">
+                              <input type="number" min="1" value="1" class="quantity-input" 
+                                     data-id="@product.Id" 
+                                     data-name="@product.ProductName" 
+                                     data-price="@productInformation.UnitPrice">
+                              <button type="button" class="add-button" 
+                                      data-id="@product.Id" 
+                                      data-name="@product.ProductName" 
+                                      data-price="@productInformation.UnitPrice">
+                                  <i class="fas fa-plus"></i> Adicionar
+                              </button>
+                          </div>
+                      </div>
+                  }
+              }
+            } 
+            else {
+              <p style="text-align: center; color: red; border: 1px solid red; padding: 1em; margin: auto" class="no-products-message">Nenhum produto encontrado! Impossível efectuar operações de venda.</p>
+            }
+        </section>
+    </section>
+
+    <form class="cart-section" asp-controller="Sale" asp-action="Add" method="post" id="salesForm">
+        <h2 class="cart-title">
+            Carrinho de Compras
+            <i class="fa-solid fa-cart-plus"></i>
+        </h2>
+
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #e2e8f0; margin-bottom: 1rem;"></i>
+                <h3>Carrinho Vazio</h3>
+                <p>Os produtos adicionados aparecerão aqui!</p>
+            </div>
+        </div>
+
+        <div id="hidden-sales-inputs"></div>
+
+        <div class="cart-summary" id="cart-summary">
+            <div><span>Subtotal:</span> <span id="subtotal">0.00 MT</span></div>
+            <div><span>Total:</span> <span id="total">0.00 MT</span></div>
+        </div>
+
+        <button type="submit" class="confirm-button" id="finalizarCompra">
+            <i class="fas fa-check-circle"></i> Finalizar Compra
+        </button>
+        <button type="button" class="clear-cart-button" id="limparCarrinho">
+            <i class="fas fa-trash-alt"></i> Limpar Carrinho
+        </button>
+    </form>
+</div>
+
+
+
+
+@* @model ProductListViewModel;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Painel de Vendas";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/sales.css" />
+}
+
+@section Scripts {
+  <script defer src="~/js/sales.js"></script>
+}
+
+<div class="main-bottom-content">
+    <section class="left-panel">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Pesquisar Produto...">
+        </div>
+
+        <div class="filter-container">
+            <select class="filter-select">
+                <option value="">🏷️ Filtrar por categoria</option>
+                <option value="bebidas">🍺 Bebidas</option>
+                <option value="cerveja">🍻 Cervejas</option>
+                <option value="premium">⭐ Premium</option>
+            </select>
+        </div>
+
+        <section class="products-section">
+            @if (Model.Products != null && Model.Products.Any())
+            {
+                foreach (var product in Model.Products)
+                {
+                  var productInformation = Model.ProductInformationList.FirstOrDefault(pi => pi.ProductId == product.Id);
+
+                  if (productInformation != null)
+                  {
+                      <div class="product-item">
+                          <div class="product-info">
+                              <h3 class="product-name">@product.ProductName</h3>
+                              <p class="product-details">🍺 Categoria: @product.ProductCategory</p>
+                              <p class="product-price">@productInformation.UnitPrice MT</p>
+                          </div>
+                          <div class="product-actions">
+                              <input type="number" min="1" value="1" class="quantity-input" data-id="@product.Id">
+                              <button class="add-button " data-id="@product.Id">
+                                  <i class="fas fa-plus"></i> Adicionar
+                              </button>
+                          </div>
+                      </div>
+                  }
+              }
+            } 
+            else {
+              <p style="text-align: center; color: red; border: 1px solid red; padding: 1em;" class="no-products-message">Nenhum produto encontrado! Impessível efectuar operações de venda.</p>
+            }
+        </section>
+    </section>
+
+    <form class="cart-section" asp-controller="Sale" asp-action="Add" method="post">
+      <h2 class="cart-title">
+          Carrinho de Compras
+          <i class="fa-solid fa-cart-plus"></i>
+      </h2>
+
+      <div class="cart-items" id="cart-items">
+          <div class="empty-cart">
+              <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #e2e8f0; margin-bottom: 1rem;"></i>
+              <h3>Carrinho Vazio</h3>
+              <p>Os produtos adicionados aparecerão aqui!</p>
+          </div>
+      </div>
+
+      <!-- Hidden inputs for product IDs and quantities -->
+      <div id="hidden-sales-inputs"></div>
+
+      <div class="cart-summary" id="cart-summary">
+          <div><span>Subtotal:</span> <span id="subtotal">0.00 MT</span></div>
+          <div><span>Total:</span> <span id="total">0.00 MT</span></div>
+      </div>
+
+      <button class="confirm-button" id="finalizarCompra">
+          <i class="fas fa-check-circle"></i> Finalizar Compra
+      </button>
+      <button class="clear-cart-button" id="limparCarrinho">
+          <i class="fas fa-trash-alt"></i> Limpar Carrinho
+      </button>
+  </form>
+</div> *@
+
+
+@* 
+<div class="main-bottom-content">
+  <section class="left-panel">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Pesquisar Produto">
+    </div>
+
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h3 class="product-name">Castle Lite</h3>
+                    <p class="product-details">🍻 Estoque: 30 unidades</p>
+                    <p class="product-price">70 MT</p>
+                </div>
+                <div class="product-actions">
+                    <input type="number" min="1" value="1" class="quantity-input">
+                    <button class="add-button"><i class="fas fa-plus"></i> Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h3 class="product-name">Laurentina Clara</h3>
+                    <p class="product-details">🍺 Estoque: 25 unidades</p>
+                    <p class="product-price">55 MT</p>
+                </div>
+                <div class="product-actions">
+                    <input type="number" min="1" value="1" class="quantity-input">
+                    <button class="add-button"><i class="fas fa-plus"></i> Adicionar</button>
+                </div>
+            </div>
+
+            <div class="product-item">
+                <div class="product-info">
+                    <h3 class="product-name">Manica</h3>
+                    <p class="product-details">🍻 Estoque: 15 unidades</p>
+                    <p class="product-price">50 MT</p>
+                </div>
+                <div class="product-actions">
+                    <input type="number" min="1" value="1" class="quantity-input">
+                    <button class="add-button"><i class="fas fa-plus"></i> Adicionar</button>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <aside class="cart-section">
+      <h2 class="cart-title">
+          Carrinho de Compras 
+          <i class="fa-solid fa-cart-plus"></i>
+      </h2>
+      
+      <div class="cart-items" id="cart-items">
+          <div class="empty-cart">
+              <i class="fas fa-shopping-cart" style="font-size: 3rem; color: #e2e8f0; margin-bottom: 1rem;"></i>
+              <h3>Carrinho Vazio</h3>
+              <p>Os produtos adicionados aparecerão aqui!</p>
+          </div>
+      </div>
+
+      <div class="cart-summary" id="cart-summary">
+          <div><span>Subtotal:</span> <span id="subtotal">0.00 MT</span></div>
+          <div><span>Total:</span> <span id="total">0.00 MT</span></div>
+      </div>
+
+      <button class="confirm-button" id="finalizarCompra">
+          <i class="fas fa-check-circle"></i> Finalizar Compra
+      </button>
+      <button class="clear-cart-button" id="limparCarrinho">
+          <i class="fas fa-trash-alt"></i> Limpar Carrinho
+      </button>
+  </aside>
+</div>
+
+
+@* 
+<div class="main-bottom-content">
+  <section class="left-panel">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Pesquisar Produto">
+    </div>
+
+    <div class="filter-container">
+      <select class="filter-select">
+        <option value="">Filtrar por categoria</option>
+        <option value="analgesicos">Analgésicos</option>
+        <option value="antibioticos">Antibióticos</option>
+        <option value="antialergicos">Antialérgicos</option>
+      </select>
+    </div>
+
+    <section class="products-section">
+      <div class="product-item">
+        <div class="product-info">
+            <h3 class="product-name">Cerveja 2M</h3>
+            <p class="product-details"10</p>
+            <p class="product-price">60MT</p>
+        </div>
+        <div class="product-actions">
+            <input type="number" min="1" value="1" class="quantity-input" data-id="{{ $med->idMedicamento }}">
+            <button class="add-button" data-id="{{ $med->idMedicamento }}"><i class="fas fa-plus"></i> Adicionar</button>
+        </div>
+      </div>
+
+      <div class="product-item">
+        <div class="product-info">
+            <h3 class="product-name">Castle Lite</h3>
+            <p class="product-details">30</p>
+            <p class="product-price">70MT</p>
+        </div>
+        <div class="product-actions">
+            <input type="number" min="1" value="1" class="quantity-input" data-id="{{ $med->idMedicamento }}">
+            <button class="add-button" data-id="{{ $med->idMedicamento }}"><i class="fas fa-plus"></i> Adicionar</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <aside class="cart-section">
+      <h2 class="cart-title">Carrinho de Compras <i class="fa-solid fa-cart-plus"></i></h2>
+      <div class="cart-items" id="cart-items">
+        <h3>Os produtos adicionados aparecerão aquí!</h3>
+      </div>
+      <div class="confirm-cancel-buttons-container">
+        <div class="cart-summary" id="cart-summary">
+            <div><span class="total-label">Subtotal:</span> <span id="subtotal">0.00</span> Mt</div>
+            <div><span class="tax-label">Imposto (5%):</span> <span id="tax">0.00</span> Mt</div>
+            <div><span class="total-label">Total:</span> <span id="total">0.00</span> Mt</div>
+        </div>
+
+        <button class="confirm-button" id="finalizarCompra"><i class="fas fa-check"></i> Finalizar Compra</button>
+        <button class="clear-cart-button" id="limparCarrinho"><i class="fas fa-trash"></i> Limpar Carrinho</button>
+      </div>
+  </aside>
+</div> *@

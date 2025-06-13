@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" href="../css/list-users.css">
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/table-styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="../js/list-users.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-logo-container sidebar-top-container">
+        <h2>Nkaia's Bar</h2>
+      </div>
+
+      <div class="sidebar-bottom-container">
+        <ul class="sidebar-links">
+          <a href="./dashbord.html">
+            <i class="fas fa-chart-line"></i>
+            <label>Dashboard</label>
+          </a>
+
+          <a href="./list-products.html">
+            <i class="fas fa-wine-bottle"></i>
+            <label>Produtos</label>
+          </a>
+          
+          <a href="#">
+            <i class="fas fa-receipt"></i>
+            <label>Pedidos</label>
+          </a>
+
+          <a href="./sales.html">
+            <i class="fas fa-cash-register"></i>
+            <label>Vendas</label>
+          </a>
+
+          <a href="./list-users.html">
+            <i class="fas fa-users"></i>
+            <label>Utilizadores</label>
+          </a>
+        </ul>
+        
+        <a class="logout" href="../login.html">
+          <ul>
+              <i class="fas fa-sign-out-alt"></i>
+              <label>Sair</label>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1 class="page-title">Lista de Utilizadores</h1>
+        <div class="user">
+          <i class="fas fa-user-circle"></i>
+          <span>Maria Mangue (Admin)</span>
+        </div>
+      </div>
+
+      <div class="user-list-container">
+        <div class="search-sort-container">
+          <div class="search-bar">
+            <input type="text" placeholder="Encontrar Utilizador" class="search-input" />
+            <i class="fas fa-search search-icon"></i>
+          </div>
+          <div class="right-side-button-container">
+            <button class="add-new-user-button js-add-new-user-button btn green">
+              <i class="fas fa-plus"></i> Adicionar Novo Utilizador
+            </button>
+
+            <div class="sort-button">
+              <span>Ordenar</span>
+              <i class="fas fa-sort sort-icon"></i>
+            </div>
+          </div>
+        </div>
+  
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Tipo de Utilizador</th>
+              <th>Acções</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>01</td>
+                <td>Wady Paulino</td>
+                <td>wady@gmail.com</td>
+                <td>Administrador</td>
+                <td class="action-buttons">
+                  <a href="#" class="action-btn edit-btn" title="Editar">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <button class="action-btn block-btn" disabled title="Bloquear">
+                    <i class="fas fa-ban"></i>
+                  </button>
+                </td>
+              </tr>
+              <!-- <tr>
+                <td style="text-align: center; color: red;" colspan="5">Nenhum utilizador encontrado</td>
+              </tr>
+              -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,177 @@
+@model UserListViewModel
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Lista de Utilizadores Bloqueados";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/modal-unlock-user.css">
+  <link rel="stylesheet" href="~/css/list-users.css">
+  <link rel="stylesheet" href="~/css/table-styles.css">
+  <link rel="stylesheet" href="~/css/modal-edit-user.css">
+  <link rel="stylesheet" href="~/css/modal-block-user.css">
+}
+
+@section Scripts {
+  <script src="~/js/list-users.js"></script>
+}
+
+<div class="user-list-container">
+  <div class="search-sort-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Encontrar Utilizador" class="search-input" />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    <div class="right-side-button-container" >
+      <a class="sort-button">
+        <span>Ordenar</span>
+        <i class="fas fa-sort sort-icon"></i>
+      </a>
+    </div>
+  </div>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Tipo de Utilizador</th>
+        <th>Acções</th>
+      </tr>
+    </thead>
+    <tbody>
+      @if (Model.Users != null && Model.Users.Any()) {
+        @foreach (var user in Model.Users) 
+        {
+          <tr>
+            <td class="tr-id-column">@user.Id</td>
+            <td class="tr-name">@user.Name</td>
+            <td>@user.EmailAddress</td>
+            <td>@user.UserType</td>
+            <td class="action-buttons">
+              <button class="action-btn block-btn js-block-user-btn" title="Desbloquear Utilizador"
+                data-user-id="@user.Id" 
+                data-user-name="@user.Name"
+                data-user-email="@user.EmailAddress"
+                data-user-phone-number="@user.PhoneNumber"
+                data-password="@user.Password"
+                data-user-type="@user.UserType"
+              >
+                <i class="fa-solid fa-unlock-keyhole"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      }
+      else {
+        <tr> 
+          <td style="text-align: center; color: red;" colspan="5">Nenhum utilizador bloqueado encontrado!</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal de Edição -->
+<div class="modal-overlay js-edit-user-modal" id="editModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+          <h2 class="modal-title">✏️ Editar Utilizador</h2>
+          <!--<p class="modal-subtitle">Modificar informações do utilizador</p> -->
+      </div>
+      <button class="modal-close js-modal-close" onclick="closeModal()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <form id="editUserForm" class="js-edit-user-form" method="post" asp-controller="User" asp-action="Edit">
+        <input type="hidden" id="editUserId" asp-for="SelectedUser.Id" />
+        
+        <div class="form-group">
+            <label for="editUserName"></label>
+            <input type="text" id="editUserName" asp-for="SelectedUser.Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editUserEmail">Email</label>
+            <input type="email" id="editUserEmail" asp-for="SelectedUser.EmailAddress" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editUserPhoneNumber">Telefone</label>
+            <input type="tel" id="editUserPhoneNumber" asp-for="SelectedUser.PhoneNumber" required>
+        </div>
+
+        <div class="form-group">
+            <label for="editUserType">Tipo de Utilizador</label>
+            <select id="editUserType" asp-for="SelectedUser.UserType" required>
+                <option class="option-admin" value="1">Administrador</option>
+                <option class="option-funcionario" value="2">Funcionário</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="editUserPassword">Nova Senha <span style="color: red;">(deixe vazio para manter atual)</span></label>
+            <div class="password-field">
+                <input type="password" id="editUserPassword" asp-for="SelectedUser.Password" placeholder="Nova senha (opcional)">
+                <button type="button" class="password-toggle" onclick="togglePassword('editUserPassword')">👁️</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="editConfirmarSenha">Confirmar Nova Senha</label>
+            <div class="password-field">
+                <input type="password" id="editConfirmarSenha" placeholder="Confirme a nova senha">
+                <button type="button" class="password-toggle" onclick="togglePassword('editConfirmarSenha')">👁️</button>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary js-modal-cancel" onclick="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary js-modal-confirm-alteration">
+            💾 Guardar Alterações
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- bock user modal  -->
+<div class="modal-overlay" id="blockModal">
+    <form class="confirm-modal js-block-user-modal" method="post" asp-controller="User" asp-action="UnBlockUser">
+        <input class="js-block-user-id-input" type="hidden" id="blockUserId" name="id" />
+
+        <div class="confirm-header confirm-unblock-header">
+            <h2 class="confirm-title">Desbloquear Utilizador</h2>
+        </div>
+
+        <div class="confirm-body">
+            <p style="color: #34495e; font-size: 16px; margin-bottom: 20px;">
+                Tem certeza que pretende desbloquear este utilizador?
+            </p>
+
+            <div class="user-info-card" id="blockUserInfo">
+                <div class="user-avatar" id="blockUserAvatar">👤</div>
+                <div class="user-details">
+                    <h3 id="blockUserName">Nome do Utilizador</h3>
+                    <p id="blockUserEmail">email@example.com</p>
+                    <p id="blockUserType">Tipo de Utilizador</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirm-actions">
+            <button type="button" class="btn btn-secondary js-close-block-user-modal">
+                Cancelar
+            </button>
+            <button type="submit" class="btn btn-danger block-user-modal-confirm-button">
+                Desbloquar
+            </button>
+        </div>
+    </form>
+</div>

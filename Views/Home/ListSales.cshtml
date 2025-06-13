@@ -1,0 +1,102 @@
+@model ProductListViewModel;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Registo de Vendas Efetuadas";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/list-products.css">
+  <link rel="stylesheet" href="~/css/table-styles.css">
+  <link rel="stylesheet" href="~/css/modal-block-product.css">
+}
+
+@section Scripts {
+  <script src="~/js/list-sales.js"></script>
+}
+
+<div class="main-bottom-content">
+  <div class="controls">
+    <input type="text" placeholder="Pesquisar Produto">
+    <a class="btn green js-add-new-product-button" asp-controller="Home" asp-action="Sales">
+      <i class="fas fa-plus"></i> Efectuar Venda Produto
+    </a>
+  </div>
+
+  @if (Model.Products == null || !Model.Products.Any())
+  {
+    <p style="text-align: center; color: red; border: 1px solid red; padding: 1em;" class="no-products-message">Nenhum produto encontrado!</p>
+  }
+  else if (Model.Sales == null || !Model.Sales.Any())
+  {
+    <p style="text-align: center; color: red; border: 1px solid red; padding: 1em;" class="no-products-message">Nenhuma venda registrada!</p>
+  }
+  else
+  {
+    <div class="product-list-table-view js-table-view">
+      <table class="user-table">
+      <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario Operador</th>
+            <th>Nome do Produto</th>
+            <th>Tamanho</th>
+            <th>Quantidade</th>
+            <th>Preço Unitário</th>
+            <th>Data de Venda</th>
+            <th class="action-buttons">Ações</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach (var sale in Model.Sales)
+          {
+            var user = Model.Users.FirstOrDefault(u => u.Id == sale.UserId);
+            var product = Model.Products.FirstOrDefault(p => p.Id == sale.ProductId);
+            var productInformation = Model.ProductInformationList.FirstOrDefault(pi => pi.ProductId == product?.Id);
+            <tr>
+                <td class="tr-id-column">@product?.Id</td>
+                <td class="tr-user-column">@user?.Name</td>
+                <td class="tr-name">@product?.ProductName</td>
+                <td>@product?.ProductSize</td>
+                <td>@sale.Amount</td>
+                <td>@productInformation?.UnitPrice</td>
+                <td>@sale.SaleDate.ToString("dd-MM-yyyy [ HH'h':mm'min' ]")</td>
+                <td class="action-buttons">
+                <button class="btn red js-block-product-button" title="Remover Venda"
+                    data-product-name="@product?.ProductCategory @product?.ProductName de @product?.ProductSize?.ToUpper()"
+                    data-product-id="@product?.Id"
+                >
+                    <i class="fas fa-trash-alt"></i> 
+                </button>
+                <button class="btn edit-btn" asp-controller="Home" asp-action="EditProduct" asp-route-id="@product?.Id" title="Editar Venda">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                </td>
+            </tr>
+          }
+        </tbody>
+        </table>
+    </div>
+  }
+</div>
+
+<!-- Modal de Bloqueamento -->
+<div class="modal-overlay js-block-product-modal" id="modalOverlay">
+  <form class="modal" asp-action="BlockProduct" asp-controller="Product" method="post">
+    <input type="hidden" name="id" class="js-block-product-id" />
+
+    <div class="modal-icon block">
+      <span>🚫</span>
+    </div>
+    <h2 class="modal-title">Bloquear Produto</h2>
+    <p class="modal-message">O produto ficará indisponível para venda até ser desbloqueado.</p>
+    <div style="color: red !important; border: 1px solid red; padding: 1em;" class="modal-product">
+      <strong id="modalProduct" class="js-block-product-name">Nome do Produto</strong>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-cancel js-close-block-product-modal">Cancelar</button>
+      <button type="submit" class="btn btn-confirm block js-confirm-block-button">Bloquear</button>
+    </div>
+  </form>
+</div>
+

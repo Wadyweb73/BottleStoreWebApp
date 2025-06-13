@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Login</title> 
+	<link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-container">
+            <h1 class="logo">Our Bottle Store</h1>
+        </div>
+        <h1 class="login-title">Login</h1>
+        <form action="./pages/dashbord.html" class="login-form" method="POST">
+            <label class="username-label input-label" for="email">Email</label>
+            <input class="signin-input" type="text" id="email" name="email">
+
+            <label class="password-label input-label" for="password">Senha</label>
+            <input class="signin-input" type="password" id="password" name="password">
+
+			<input type="hidden" name="token" value="<?= Token::generate() ?>">
+            <button type="submit" id="submit-button">Entrar</button>
+
+            <div class="login-container-links">
+                <a id="forgotten-password" href="#">Esqueceu-se da palavra-passe?</a>
+                <a id="create-account" href="./signup.html">Criar Conta</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

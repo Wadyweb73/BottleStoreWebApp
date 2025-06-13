@@ -1,0 +1,46 @@
+<div class="sidebar">
+  <div class="sidebar-logo-container sidebar-top-container">
+    <h2>Nkaia's Bar</h2>
+  </div>
+
+  <div class="sidebar-bottom-container">
+    <ul class="sidebar-links">
+      <a asp-controller="Home" asp-action="Dashboard">
+        <i class="fas fa-chart-line"></i>
+        <label>Dashboard</label>
+      </a>
+
+      <a asp-controller="Home" asp-action="ListUsers">
+        <i class="fas fa-users"></i>
+        <label>Utilizadores</label>
+      </a>
+      
+      <a asp-controller="Home" asp-action="ListProducts">
+        <i class="fas fa-wine-bottle"></i>
+        <label>Produtos</label>
+      </a>
+      
+      @* <a href="#">
+        <i class="fas fa-receipt"></i>
+        <label>Pedidos</label>
+      </a> *@
+    
+      <a asp-controller="Home" asp-action="Sales">
+        <i class="fas fa-cash-register"></i>
+        <label>Efectuar Vendas</label>
+      </a>
+
+      <a asp-controller="Home" asp-action="ListSales">
+        <i class="fa-solid fa-table-list"></i>
+        <label>Histórico de Vendas</label>
+      </a>
+    </ul> 
+    
+    <a class="logout" asp-controller="Home" asp-action="Index">
+      <ul>
+          <i class="fas fa-sign-out-alt"></i>
+          <label>Sair</label>
+      </ul>
+    </a>
+  </div>
+</div>

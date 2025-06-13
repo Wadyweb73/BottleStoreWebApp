@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" type="" href="~/css/header.css">
+  <link rel="stylesheet" type="" href="~/css/sidebar.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  @RenderSection("Styles", required: false)
+</head>
+<body>
+  <div class="container">
+    @Html.Partial("Partials/_Sidebar")
+
+    <div class="main">
+      @Html.Partial("Partials/_Header")
+
+      @RenderBody()
+    </div>
+  </div>
+
+  @RenderSection("Scripts", required: false)
+</body>
+</html>

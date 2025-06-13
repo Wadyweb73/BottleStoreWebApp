@@ -1,0 +1,56 @@
+@model User;
+
+@{
+    Layout = "_Layout";
+    ViewData["page_title"] = "Registar Utilizador";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/register-user-form.css" />
+}
+
+@section Scripts {
+  <script src="~/js/list-users.js"></script>
+}
+
+<div class="main-content">
+  <form class="user-form" method="post" asp-controller="User" asp-action="Create">
+    <div class="form-group">
+      <label for="name">Nome do Utilizador</label>
+      <input asp-for="Name" type="text" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" asp-for="EmailAddress" id="email" required placeholder="meuemail123@email.com">
+    </div>
+
+    <div class="form-group">
+      <label for="phone_number">Telefone</label>
+      <input type="tel" asp-for="PhoneNumber" id="email" required placeholder="+258 85****69">
+    </div>
+
+    <div class="form-group">
+      <label for="role">Tipo de Utilizador</label>
+      <select asp-for="UserType" id="role" required>
+        <option value="" class="first-option" value="">-- Seleccine o Tipo de Utilizador --</option>
+        <option value="1">Administrador</option>
+        <option value="2">Funcionário</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha</label>
+      <input asp-for="Password" type="password" id="password" required placeholder="minhapalavrapasse123">
+    </div>
+
+    <div class="form-group">
+      <label for="password-confirmation">Confirmar Senha</label>
+      <input type="password" id="password-confirmation" name="password-confirmation" required>
+    </div>
+
+    <button type="submit">Confirmar</button>
+  </form>
+</div>
+
+
