@@ -1,0 +1,25 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #123456;
+  background: #fff;
+  background-color: #fff;
+  padding: 1em 1em;
+  color: #fff;
+}
+
+.topbar .page-title {
+  color: #123456;
+}
+
+.topbar .user {
+  background-color: #ddd;
+  background-color: #742B18;
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+

@@ -1,0 +1,120 @@
+@model ProductListViewModel;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Lista de Produtos Removidos";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/list-products.css">
+  <link rel="stylesheet" href="~/css/table-styles.css">
+  <link rel="stylesheet" href="~/css/modal-block-product.css">
+}
+
+@section Scripts {
+  <script src="~/js/list-products.js"></script>
+}
+
+<div class="main-bottom-content">
+  <div class="controls">
+    <input type="text" placeholder="Pesquisar Produto">
+    <select class="view-mode-select-input js-view-mode-select-input">
+      <option selected value="1">Visualização em Tabela</option>
+      <option value="2">Visualização em Cards</option>
+    </select>
+  </div>
+
+  <div class="cards js-card-view display-none">
+    @if (Model.Products != null && Model.Products.Any())
+    {
+      foreach (var product in Model.Products)
+      {
+        var productInformation = Model.ProductInformationList.FirstOrDefault(pi => pi.ProductId == product.Id);
+
+        if (productInformation != null)
+        {
+          <div class="card">
+            <h2><i class="fa-solid fa-wine-bottle"></i> <strong>@product.ProductCategory @product.ProductName</strong> - [ @product.ProductSize ]</h2>
+            <p><i class="fas fa-tag"></i> Categoria: <span class="value-container">@product.ProductCategory</span> </p>
+            <p><i class="fas fa-box"></i> Quantidade Disponível: <span class="value-container">@productInformation.AmountBoxes CAIXAS</span></p>
+            <p><i class="fas fa-coins"></i> Preço Unit.: <span class="value-container">@productInformation.UnitPrice MT</span></p>
+            <p><i class="fas fa-coins"></i> Preço de Compra: <span class="value-container">@productInformation.PurchasePrice MT</span></p>
+            <p><i class="fas fa-user"></i> Fornecedor: <span class="value-container">@productInformation.ProductSupplier</span></p>
+          </div>
+        }
+      }
+    }
+    else
+    {
+      <p style="text-align: center; color: red; border: 1px solid red; padding: 1em;" class="no-products-message">Nenhum produto encontrado!</p>
+    }
+  </div>
+
+  <div class="product-list-table-view js-table-view">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome do Produto</th>
+          <th>Categoria</th>
+          <th>Tamanho</th>
+          <th>Quantidade Disponível</th>
+          <th>Preço Unitário</th>
+          <th>Fornecedor</th>
+          <th class="action-buttons">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (Model.Products != null && Model.Products.Any())
+        {
+          foreach (var product in Model.Products)
+          {
+            var productInformation = Model.ProductInformationList.FirstOrDefault(pi => pi.ProductId == product.Id);
+
+            if (productInformation != null)
+            {
+              <tr>
+                <td class="tr-id-column">@product.Id</td>
+                <td class="tr-name">@product.ProductName</td>
+                <td>@product.ProductCategory</td>
+                <td>@product.ProductSize</td>
+                <td>@productInformation.AmountBoxes</td>
+                <td>@productInformation.UnitPrice</td>
+                <td>@productInformation.ProductSupplier</td>
+                <td class="action-buttons">
+                  <button class="btn green block-btn js-block-product-button" title="Desbloquear Produto"
+                      data-product-name="@product.ProductCategory @product.ProductName de @product.ProductSize?.ToUpper()"
+                      data-product-id="@product.Id"
+                  >
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal de Bloqueamento -->
+<div class="modal-overlay js-block-product-modal" id="modalOverlay">
+  <form class="modal" asp-action="UnBlockProduct" asp-controller="Product" method="post">
+    <input type="hidden" name="id" class="js-block-product-id" />
+
+    <div class="modal-icon block">
+      <i class="fa-solid fa-unlock-keyhole"></i>
+    </div>
+    <h2 class="modal-title">Desbloquear Produto</h2>
+    <p class="modal-message">O produto voltará a ficar visível para venda e na lista de produtos não bloqueados.</p>
+    <div style="color: green !important; border: 1px solid green; padding: 1em;" class="modal-product">
+      <strong id="modalProduct" class="js-block-product-name">Nome do Produto</strong>
+    </div>
+    <div class="modal-actions">
+      <button type="button" style="background: red !important; color: white !important;" class="btn btn-cancel js-close-block-product-modal">Cancelar</button>
+      <button type="submit" style="background: green !important; color: white !important;" class="btn btn-confirm block js-confirm-block-button">Desbloquear</button>
+    </div>
+  </form>
+</div>
+

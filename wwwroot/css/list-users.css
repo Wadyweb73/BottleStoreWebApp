@@ -1,0 +1,90 @@
+.user-list-container {
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+  padding: 0 1em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+.search-sort-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: white;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  width: 250px;
+  font-size: 14px;
+}
+
+.search-icon {
+  color: #003366;
+  margin-left: 8px;
+}
+
+.right-side-button-container {
+  display: flex;
+  column-gap: 0.5em;
+}
+
+.add-new-user-button {
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 0.5em;
+  background: #00A000;
+  color: #fff;;
+}
+
+.add-new-user-button:hover {
+  background-color: #16a34aaa;
+  cursor: pointer;
+}
+
+.user-list-container {
+  height: 100%;
+}
+
+.sort-button {
+  display: flex;
+  align-items: center;
+  background-color: #003366;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.sort-button:hover {
+  background-color: #002244;
+}
+
+.sort-icon {
+  margin-left: 8px;
+}
+
+.trash-icon-button {
+  display: flex;
+  background: red;
+  color: #fff;
+  font-weight: bold;
+  align-items: center;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  column-gap: 0.5em;
+}

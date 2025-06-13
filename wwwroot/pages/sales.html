@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/sales.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-logo-container sidebar-top-container">
+        <h2>Nkaia's Bar</h2>
+      </div>
+
+      <div class="sidebar-bottom-container">
+        <ul class="sidebar-links">
+          <a href="./dashbord.html">
+            <i class="fas fa-chart-line"></i>
+            <label>Dashboard</label>
+          </a>
+
+          <a href="./list-products.html">
+            <i class="fas fa-wine-bottle"></i>
+            <label>Produtos</label>
+          </a>
+          
+          <a href="#">
+            <i class="fas fa-receipt"></i>
+            <label>Pedidos</label>
+          </a>
+
+          <a href="./sales.html">
+            <i class="fas fa-cash-register"></i>
+            <label>Vendas</label>
+          </a>
+
+          <a href="./list-users.html">
+            <i class="fas fa-users"></i>
+            <label>Utilizadores</label>
+          </a>
+        </ul>
+        
+        <a class="logout" href="../login.html">
+          <ul>
+              <i class="fas fa-sign-out-alt"></i>
+              <label>Sair</label>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1 class="page-title">Efectuar Venda</h1>
+        <div class="user">
+          <i class="fas fa-user-circle"></i>
+          <span>Maria Mangue (Admin)</span>
+        </div>
+      </div>
+
+      <div class="main-bottom-content">
+        <section class="left-panel">
+          <div class="search-container">
+            <input type="text" class="search-input" placeholder="Pesquisar Produto">
+          </div>
+
+          <div class="filter-container">
+            <select class="filter-select">
+              <option value="">Filtrar por categoria</option>
+              <option value="analgesicos">Analgésicos</option>
+              <option value="antibioticos">Antibióticos</option>
+              <option value="antialergicos">Antialérgicos</option>
+            </select>
+          </div>
+
+          <section class="products-section">
+            <div class="product-item">
+              <div class="product-info">
+                  <h3 class="product-name">Cerveja 2M</h3>
+                  <p class="product-details"10</p>
+                  <p class="product-price">60MT</p>
+              </div>
+              <div class="product-actions">
+                  <input type="number" min="1" value="1" class="quantity-input" data-id="{{ $med->idMedicamento }}">
+                  <button class="add-button" data-id="{{ $med->idMedicamento }}"><i class="fas fa-plus"></i> Adicionar</button>
+              </div>
+            </div>
+
+            <div class="product-item">
+              <div class="product-info">
+                  <h3 class="product-name">Castle Lite</h3>
+                  <p class="product-details">30</p>
+                  <p class="product-price">70MT</p>
+              </div>
+              <div class="product-actions">
+                  <input type="number" min="1" value="1" class="quantity-input" data-id="{{ $med->idMedicamento }}">
+                  <button class="add-button" data-id="{{ $med->idMedicamento }}"><i class="fas fa-plus"></i> Adicionar</button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <aside class="cart-section">
+            <h2 class="cart-title">Carrinho de Compras <i class="fa-solid fa-cart-plus"></i></h2>
+            <div class="cart-items" id="cart-items">
+              <h3>Os produtos adicionados aparecerão aquí!</h3>
+            </div>
+            <div class="confirm-cancel-buttons-container">
+              <div class="cart-summary" id="cart-summary">
+                  <div><span class="total-label">Subtotal:</span> <span id="subtotal">0.00</span> Mt</div>
+                  <div><span class="tax-label">Imposto (5%):</span> <span id="tax">0.00</span> Mt</div>
+                  <div><span class="total-label">Total:</span> <span id="total">0.00</span> Mt</div>
+              </div>
+
+              <button class="confirm-button" id="finalizarCompra"><i class="fas fa-check"></i> Finalizar Compra</button>
+              <button class="clear-cart-button" id="limparCarrinho"><i class="fas fa-trash"></i> Limpar Carrinho</button>
+            </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cart = {};
+    
+    function formatMt(value) {
+      return value.toFixed(2).replace('.', ',') + ' Mt';
+    }
+
+    function atualizarCarrinho() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      cartItemsDiv.innerHTML = '';
+
+      let subtotal = 0;
+
+      Object.values(cart).forEach(item => {
+        const itemTotal = item.preco * item.quantidade;
+        subtotal += itemTotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
+        itemDiv.innerHTML = `
+          <div class="cart-item-details">
+            <span class="item-name">${item.nome}</span>
+            <span class="item-quantity">${item.quantidade}x</span>
+            <span class="item-price">${formatMt(itemTotal)}</span>
+          </div>
+          <button class="remove-item" data-id="${item.id}">
+            <i class="fas fa-trash"></i>
+          </button>
+        `;
+        cartItemsDiv.appendChild(itemDiv);
+
+        itemDiv.querySelector('.remove-item').addEventListener('click', () => {
+          delete cart[item.id];
+          atualizarCarrinho();
+        });
+      });
+
+      const imposto = subtotal * 0.05;
+      const total = subtotal + imposto;
+
+      document.getElementById('subtotal').innerText = formatMt(subtotal);
+      document.getElementById('tax').innerText = formatMt(imposto);
+      document.getElementById('total').innerText = formatMt(total);
+    }
+
+    document.querySelectorAll('.add-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const quantityInput = document.querySelector(`.quantity-input[data-id="${id}"]`);
+        const quantidade = parseInt(quantityInput.value);
+        const nome = button.closest('.product-item').querySelector('.product-name').innerText;
+        const precoText = button.closest('.product-item').querySelector('.product-price').innerText;
+        const preco = parseFloat(precoText.replace('Mt', '').replace('.', '').replace(',', '.'));
+
+        if (cart[id]) {
+          cart[id].quantidade += quantidade;
+        } else {
+          cart[id] = {
+            id,
+            nome,
+            preco,
+            quantidade
+          };
+        }
+
+        atualizarCarrinho();
+      });
+    });
+
+    document.getElementById('limparCarrinho').addEventListener('click', () => {
+      for (let key in cart) delete cart[key];
+      atualizarCarrinho();
+    });
+
+
+      
+      document.getElementById('finalizarCompra').addEventListener('click', () => {
+      if (Object.keys(cart).length === 0) {
+          alert('O carrinho está vazio!');
+          return;
+      }
+
+      const itens = Object.values(cart);
+      const total = parseFloat(document.getElementById('total').innerText.replace('Mt', '').replace('.', '').replace(',', '.'));
+
+      fetch("{{ route('finalizar.compra') }}", {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          body: JSON.stringify({ itens, total })
+      })
+      .then(res => res.json())
+      .then(data => {
+          if (data.erro) {
+          alert("Erro: " + data.erro);
+          } else {
+          alert(data.mensagem);
+          window.location.href = `/recibo/${data.recibo_id}`;
+          }
+      })
+      .catch(err => alert("Erro ao finalizar venda: " + err));
+
+      for (let key in cart) delete cart[key];
+      atualizarCarrinho();
+      });
+
+
+    atualizarCarrinho(); // Inicializa ao carregar a página
+  </script>
+</body>
+</html>

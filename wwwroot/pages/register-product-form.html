@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bar Manager Dashboard</title>
+  <link rel="stylesheet" href="../css/header.css" />
+  <link rel="stylesheet" href="../css/sidebar.css" />
+  <link rel="stylesheet" href="../css/table-styles.css">
+  <link rel="stylesheet" href="../css/register-product-form.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="../js/list-users.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-logo-container sidebar-top-container">
+        <h2>Nkaia's Bar</h2>
+      </div>
+
+      <div class="sidebar-bottom-container">
+        <ul class="sidebar-links">
+          <a href="./dashbord.html">
+            <i class="fas fa-chart-line"></i>
+            <label>Dashboard</label>
+          </a>
+
+          <a href="./list-products.html">
+            <i class="fas fa-wine-bottle"></i>
+            <label>Produtos</label>
+          </a>
+          
+          <a href="#">
+            <i class="fas fa-receipt"></i>
+            <label>Pedidos</label>
+          </a>
+
+          <a href="./sales.html">
+            <i class="fas fa-cash-register"></i>
+            <label>Vendas</label>
+          </a>
+
+          <a href="./list-users.html">
+            <i class="fas fa-users"></i>
+            <label>Utilizadores</label>
+          </a>
+        </ul>
+        
+        <a class="logout" href="../login.html">
+          <ul>
+              <i class="fas fa-sign-out-alt"></i>
+              <label>Sair</label>
+          </ul>
+        </a>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1 class="page-title">Registar Produto</h1>
+        <div class="user">
+          <i class="fas fa-user-circle"></i>
+          <span>Maria Mangue (Admin)</span>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <form method="POST" action="{{ route('medicamentos.store') }}">
+          <div class="form-group">
+            <label for="nomeMedicamento">Nome do Produto</label>
+            <input type="text" id="nomeMedicamento" name="nomeMedicamento" required />
+          </div>
+
+          <div class="form-group">
+            <label for="quantidadeMedicamento">Quantidade (em caixas)</label>
+            <input type="number" id="quantidadeMedicamento" name="quantidadeMedicamento" required />
+          </div>
+
+          <div class="form-group">
+            <label for="massaMedicamento">Tamanho da Garafa</label>
+            <input type="text" id="massaMedicamento" name="massaMedicamento" required />
+          </div>
+
+          <div class="form-group">
+            <label for="prazoMedicamento">Dia de Entrada</label>
+            <input type="datetime-local" id="prazoMedicamento" name="prazoMedicamento" required />
+          </div>
+
+          <div class="form-group">
+            <label for="precoMedicamento">Preço Unitário (MZN)</label>
+            <input type="number" step="0.01" id="precoMedicamento" name="precoMedicamento" required />
+          </div>
+
+          <button type="submit">Salvar Produto</button>
+        </form>
+      </div>
+    </div>
+</body>
+</html>
+
+

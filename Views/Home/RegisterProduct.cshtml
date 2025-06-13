@@ -1,0 +1,59 @@
+@model RegisterProductViewModel;
+
+@{
+  Layout = "_Layout";
+  ViewData["page_title"] = "Registar Produto";
+}
+
+@section Styles {
+  <link rel="stylesheet" href="~/css/table-styles.css">
+  <link rel="stylesheet" href="~/css/register-product-form.css">
+}
+
+@section Scripts {
+  <script src="~/js/list-users.js"></script>
+}
+
+<div class="form-container">
+  <form asp-controller="Product" asp-action="RegisterNewProduct" method="post">
+    <!-- Product  -->
+    <div class="form-group">
+      <label for="productName">Nome do Produto</label>
+      <input type="text" id="productName" asp-for="Product.ProductName" required />
+    </div>
+
+    <div class="form-group">
+      <label for="productCategory">Categoria do Produto</label>
+      <input id="productCategory" asp-for="Product.ProductCategory" required >
+    </div>
+
+    <div class="form-group">
+      <label for="productSize">Tamanho da Garafa</label>
+      <input type="text" id="productSize" asp-for="Product.ProductSize" required />
+    </div>
+
+    <!-- Product Information  -->
+    <div class="form-group">
+      <label for="productQuantiy">Quantidade (em caixas)</label>
+      <input type="number" id="productQuantiy" asp-for="ProductInformation.AmountBoxes" required />
+    </div>
+
+    <div class="form-group">
+      <label for="supplierName">Fornecedor</label>
+      <input type="text" id="supplierName" asp-for="ProductInformation.ProductSupplier" required />
+    </div>
+
+    <div class="form-group">
+      <label for="purchasePrice">Preço de Compra</label>
+      <input type="number" step="0.01" id="purchasePrice" asp-for="ProductInformation.PurchasePrice" required />
+    </div>
+
+    <div class="form-group">
+      <label for="precoMedicamento">Preço Unitário (MZN)</label>
+      <input type="number" step="0.01" id="precoMedicamento" asp-for="ProductInformation.UnitPrice" required />
+    </div>
+
+    <button type="submit">Salvar Produto</button>
+  </form>
+</div>
+ 
