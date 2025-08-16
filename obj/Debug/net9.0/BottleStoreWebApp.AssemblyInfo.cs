@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BottleStoreWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e73b000afed3e116080c0ad7e2e3b52f4a41beb5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+922a405ea2f268a8d82bb0604ccce9ed3ccf5e4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("BottleStoreWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BottleStoreWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
